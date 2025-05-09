@@ -1,4 +1,4 @@
-# Java Project Attributes
+# gRPC Services Integration
 
 This is an [Archetect](https://archetect.github.io/) archetype.
 
