@@ -5,9 +5,6 @@ if switch_enabled("debug-answers") {
     display(as_yaml(ANSWERS));
 }
 
-context += ANSWERS;
-
-
 context += prompt("List of gRPC Services to Integrate (example: user-service, stripe-adapter):", "grpc-service-names", #{
         type: List,
         cases: [
@@ -20,7 +17,7 @@ if (context["grpc-service-names"] != () && context["grpc-service-names"].len > 0
     context.services = create_services(context);    
 } else {
     context.set("use-default-service", true);
-    context.services = default_services(context);
+    context.services = default_services(context + ANSWERS);//ANSWERS has project-prefix from caller
 }
 
 
