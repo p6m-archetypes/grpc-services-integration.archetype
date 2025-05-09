@@ -38,7 +38,7 @@ For example:
 - `services` - gRPC service model with default entity model (id, name)
 - `use-default-service` - boolean when any service name is specified, `service` will have default implementation with the name of `project-prefix` of your caller context.
 
-### Example of `grpc-service-names`=["foo-service", "bar-adapter"]
+#### Example of Output context for `grpc-service-names`=["foo-service", "bar-adapter"]
 ```yaml
 grpc-service-names:
 - service-name: foo-service
@@ -76,7 +76,7 @@ services:
 use-default-service: false
 ```
 
-## Default (No gRPC Services provided), `-a project-prefix=sample`
+#### Example of Output context for Default (No gRPC Services provided), `-a project-prefix=sample`
 ```yaml
 grpc-service-names: []
 project-prefix: sample
