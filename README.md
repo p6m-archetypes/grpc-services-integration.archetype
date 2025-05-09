@@ -1,4 +1,4 @@
-# gRPC Services Integration
+# gRPC Services Integration Archetype
 
 This is an [Archetect](https://archetect.github.io/) archetype.
 
