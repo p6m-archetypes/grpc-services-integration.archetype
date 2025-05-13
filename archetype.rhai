@@ -14,7 +14,7 @@ context += prompt("List of gRPC Services to Integrate (example: user-service, st
 
 if (context["grpc-service-names"] != () && context["grpc-service-names"].len > 0) {
     context.set("use-default-service", false);
-    context.services = create_services(context);    
+    context.services = create_services(context+ ANSWERS);    
 } else {
     context.set("use-default-service", true);
     context.services = default_services(context + ANSWERS);//ANSWERS has project-prefix from caller
@@ -34,6 +34,9 @@ fn create_services (context) {
         let result = to_prefix_suffix(service_name);
 
         let service_context = create_service_context(result.first, result.second, port);
+        service_context["org_name"] = context["org_name"];
+        service_context["solution_name"] = context["solution_name"];
+        service_context["group-id"] = context["group-id"];
 
         services += create_service(service_context); 
         port += 10;
@@ -61,6 +64,11 @@ fn create_service (context) {
 ${context["project-name"]}:
   ProjectName: ${context["ProjectName"]}
   project-name: ${context["project-name"]}
+  projectName: ${context["projectName"]}
+  PROJECT_NAME: ${context["PROJECT_PREFIX"]}
+  group-id: ${context["group-id"]}
+  artifact-id: ${context["project-name"]}
+  root_package: ${context["org_name"]}.${context["solution_name"]}.${context["project_name"]}
   service-port: ${context["service-port"]}
   model:
     entities:
@@ -79,7 +87,7 @@ ${context["project-name"]}:
 
 fn default_services(context) {
     let default_service_name = `${context["project-prefix"]}-service`;
-    let context = #{
+    let context = context + #{
         "grpc-service-names": [
             #{
                 "service-name": default_service_name
